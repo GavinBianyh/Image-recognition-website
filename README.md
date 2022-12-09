@@ -111,7 +111,7 @@ sudo systemctl restart apache2
 
 ## Demo Video
 
-<video src="assets/demo.mp4"></video>
+https://user-images.githubusercontent.com/89864477/206608556-bdba5f61-7767-4e61-afd0-54cfa8e5a72a.mp4
 
 
 
