@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.warp {
+				display: inline-block;
+				vertical-align: bottom;
+				position: relative;
+
+			}
+
+			.warp-content {
+				border: 1px solid red;
+				width: 150px;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+			}
+
+			input {
+				position: absolute;
+				top: 0;
+				left: 0;
+				border: 1px solid red;
+				width: 150px;
+				height: 30px;
+				opacity: 0;
+				cursor: pointer;
+			}
+
+			img {
+				width: 300px;
+				height: 300px;
+				border: 1px solid red;
+				/* margin-top: 50px;
+                vertical-align: bottom; */
+			}
+
+			.fileBox {
+				width: 800px;
+				height: 550px;
+				margin: 100px auto;
+				display: flex;
+				background: beige;
+				justify-content: center;
+				align-items: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div
+			style="margin: 100px auto;width: 800px;background-color: #f3f1f1;text-align: center;padding-top: 30px;padding-bottom: 30px;">
+			<div class="title" style="font-size: 35px; color: black;margin-bottom: 30px;">
+				CS655: lmage Recognition Network Simulator
+			</div>
+			<div>
+				<div style="display: flex;justify-content: center;">
+					<div
+						style="width: 300px;height: 35px;color: black;border: 1px solid grey;line-height: 35px;padding-left: 15px;border-radius: 5px;font-size: 18px;text-align: left;">
+						<span>select picture</span>
+					</div>
+					<div
+						style="position: relative;display: flex;justify-content: center;align-items: center;height: 35px;line-height: 35px;width: 120px; border-radius: 5px;background-color: #acd244;margin-left: 30px;padding: 0px 15px;cursor: pointer;">
+						<span>click to Preview</span>
+						<input type="file" id="file" name='file' accept=".jpeg" />
+					</div>
+				</div>
+			</div>
+			<div style="margin-top: 20px" id="imgDiv">
+				<!-- <div style="margin-top: 20px;display: none;" id="imgDiv"> -->
+				<p style="font-size: 25px;color: black">ImgPreview:</p>
+				<img src="" />
+				<div>
+					<button id='btn_submit'
+						style="cursor: pointer;margin-top: 30px;height: 30px;width: 100px;background-color: blue;border-radius: 5px;border:none;color: aliceblue;">Upload</button>
+				</div>
+				<p style="font-size:15px;color: black" id="file_size"></p>
+				<p style="font-size:15px;color: black" id="rtt"></p>
+				<p style="font-size:15px;color: black">Classification Result:</p>
+				<p style="font-size:15px;color: black" id="result"></p>
+			</div>
+
+			<!-- <div class="fileBox">
+				
+				<div class="warp">
+					<div class="warp-content">Select File</div>
+					<input type="file" id="file" />
+				</div>
+
+				<img src="" />
+			</div> -->
+		</div>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js" async></script>
+		<script type="text/javascript">
+			var file = document.getElementById('file');
+			var image = document.querySelector("img");
+			var imgDiv = document.getElementById("imgDiv");
+			var btn = document.querySelector("button");
+			var result = document.getElementById("result");
+			var file_size = document.getElementById("file_size");
+			var rtt = document.getElementById("rtt");
+			fileData1 = '';
+			var form = new FormData();
+			file.onchange = function() {
+				var fileData = this.files[0];
+				var pettern = /^image/;
+
+				if (!pettern.test(fileData.type)) {
+					alert("File format error");
+					return;
+				}
+				var reader = new FileReader();
+				reader.readAsDataURL(fileData);
+				reader.onload = function(e) {
+					image.setAttribute("src", this.result)
+					fileData1 = this.result
+					console.log('sssssssddddddd', fileData, this.result)
+					imgDiv.style.display = 'block'
+					file_size.innerText = "File Size : " + fileData.size + " bytes"
+				}
+				console.info('fileData: ', fileData);
+				console.info('fileData.name', fileData.name);
+				form.append('file', fileData);
+				for (var key of form.entries()) {
+        			console.log(key[0] + ', ' + key[1]);
+    			}
+			};
+
+			// function btnOk() {
+			// }
+
+			document.getElementById("btn_submit").addEventListener('click', function() {
+				var settings = {
+				  //"url": "http://127.0.0.1:5000/file-upload",
+				  "url": "http://192.171.20.116:5000/file-upload",
+				  "method": "POST",
+				  "timeout": 0,
+				  // "headers": {
+				  //   "Content-type": "multipart/form-data"
+				  // },
+				  "processData": false,
+				  "mimeType": "multipart/form-data",
+				  "contentType": false,
+				  "data": form
+				};
+
+				var send_ts = new Date().getTime();
+
+				
+				$.ajax(settings).done(function (response) {
+				console.log(response);
+				result.innerText = response;
+				var recv_ts = new Date().getTime();
+				var rtt_ms = recv_ts - send_ts;
+			    rtt.innerText = "RTT : " + rtt_ms + "ms";
+				});
+				
+		
+			}, false);
+		</script>
+	</body>
+</html>
