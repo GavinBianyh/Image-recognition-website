@@ -111,7 +111,7 @@ sudo systemctl restart apache2
 
 ## Demo Video
 
-<video src="assets/demo.mov"></video>
+<video src="assets/demo.mp4"></video>
 
 
 
