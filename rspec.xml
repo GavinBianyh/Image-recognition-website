@@ -1,0 +1,50 @@
+<rspec xmlns="http://www.geni.net/resources/rspec/3" xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" xmlns:tour="http://www.protogeni.net/resources/rspec/ext/apt-tour/1" xmlns:jacks="http://www.protogeni.net/resources/rspec/ext/jacks/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.geni.net/resources/rspec/3    http://www.geni.net/resources/rspec/3/request.xsd" type="request">
+  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="frontend" component_manager_id="urn:publicid:IDN+geni.case.edu+authority+cm" component_id="urn:publicid:IDN+geni.case.edu+node+pc3" sliver_id="urn:publicid:IDN+geni.case.edu+sliver+116619" exclusive="false">
+    <icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://portal.geni.net/images/Xen-VM.svg"/>
+    <routable_control_ip xmlns="http://www.protogeni.net/resources/rspec/ext/emulab/1"/>
+    <sliver_type name="emulab-xen">
+      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"/>
+    </sliver_type>
+    <services>
+      <login authentication="ssh-keys" hostname="pcvm3-10.geni.case.edu" port="22" username="lei"/>
+      <login authentication="ssh-keys" hostname="pcvm3-10.geni.case.edu" port="22" username="ctony"/>
+      <login authentication="ssh-keys" hostname="pcvm3-10.geni.case.edu" port="22" username="lc21fall"/>
+      <login authentication="ssh-keys" hostname="pcvm3-10.geni.case.edu" port="22" username="matta"/>
+      <emulab:console server="pcvm3-10.geni.case.edu"/>
+      <emulab:imageable available="true"/>
+    </services>
+    <interface client_id="interface-0" component_id="urn:publicid:IDN+geni.case.edu+interface+pc3:lo0" sliver_id="urn:publicid:IDN+geni.case.edu+sliver+116622" mac_address="02ccf2d369c1">
+      <ip address="10.10.1.1" type="ipv4" netmask="255.255.255.0"/>
+    </interface>
+    <emulab:vnode name="pcvm3-10" hardware_type="pcvm" disk_image="emulab-ops/UBUNTU18-64-STD:0"/>
+    <host name="frontend.mini-proj.ch-geni-net.geni.case.edu" ipv4="192.171.20.117"/>
+  </node>
+  <node xmlns:emulab="http://www.protogeni.net/resources/rspec/ext/emulab/1" client_id="backend" component_manager_id="urn:publicid:IDN+geni.case.edu+authority+cm" component_id="urn:publicid:IDN+geni.case.edu+node+pc3" sliver_id="urn:publicid:IDN+geni.case.edu+sliver+116618" exclusive="false">
+    <icon xmlns="http://www.protogeni.net/resources/rspec/ext/jacks/1" url="https://portal.geni.net/images/Xen-VM.svg"/>
+    <routable_control_ip xmlns="http://www.protogeni.net/resources/rspec/ext/emulab/1"/>
+    <sliver_type name="emulab-xen">
+      <disk_image name="urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU18-64-STD"/>
+    </sliver_type>
+    <services>
+      <login authentication="ssh-keys" hostname="pcvm3-9.geni.case.edu" port="22" username="lei"/>
+      <login authentication="ssh-keys" hostname="pcvm3-9.geni.case.edu" port="22" username="ctony"/>
+      <login authentication="ssh-keys" hostname="pcvm3-9.geni.case.edu" port="22" username="lc21fall"/>
+      <login authentication="ssh-keys" hostname="pcvm3-9.geni.case.edu" port="22" username="matta"/>
+      <emulab:console server="pcvm3-9.geni.case.edu"/>
+      <emulab:imageable available="true"/>
+    </services>
+    <interface client_id="interface-1" component_id="urn:publicid:IDN+geni.case.edu+interface+pc3:lo0" sliver_id="urn:publicid:IDN+geni.case.edu+sliver+116623" mac_address="0274a318e040">
+      <ip address="10.10.1.2" type="ipv4" netmask="255.255.255.0"/>
+    </interface>
+    <emulab:vnode name="pcvm3-9" hardware_type="pcvm" disk_image="emulab-ops/UBUNTU18-64-STD:0"/>
+    <host name="backend.mini-proj.ch-geni-net.geni.case.edu" ipv4="192.171.20.116"/>
+  </node>
+  <link client_id="link-0" sliver_id="urn:publicid:IDN+geni.case.edu+sliver+116621">
+    <interface_ref client_id="interface-0" component_id="urn:publicid:IDN+geni.case.edu+interface+pc3:lo0" sliver_id="urn:publicid:IDN+geni.case.edu+sliver+116622"/>
+    <interface_ref client_id="interface-1" component_id="urn:publicid:IDN+geni.case.edu+interface+pc3:lo0" sliver_id="urn:publicid:IDN+geni.case.edu+sliver+116623"/>
+    <component_manager name="urn:publicid:IDN+geni.case.edu+authority+cm"/>
+  </link>
+  <rs:site_info xmlns:rs="http://www.protogeni.net/resources/rspec/ext/site-info/1">
+    <rs:location country="" latitude="41.50588" longitude="-81.609169"/>
+  </rs:site_info>
+</rspec>
